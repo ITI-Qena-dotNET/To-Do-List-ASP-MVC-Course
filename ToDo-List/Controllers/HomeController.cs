@@ -3,6 +3,7 @@ using System.Diagnostics;
 using ToDo_List.Models;
 
 namespace ToDo_List.Controllers;
+
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
