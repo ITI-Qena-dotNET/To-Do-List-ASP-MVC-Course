@@ -1,6 +1,6 @@
 ﻿namespace ToDo_List.Models;
 
-public sealed class Task
+public sealed class TodoTask
 {
     public int ID { get; set; }
 

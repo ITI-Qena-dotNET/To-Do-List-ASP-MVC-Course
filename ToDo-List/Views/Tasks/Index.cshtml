@@ -1,5 +1,59 @@
-﻿@{
+﻿@model List<TodoTask>
+@{
     ViewData["Title"] = "Tasks";
 }
 
-<h1>Tasks</h1>
+<div class="container p-3 bg-white">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Tasks List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-action="Create" class="btn btn-primary">
+                Create New Task
+            </a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    @if (Model.Any())
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td width="60%">@obj.Name</td>
+                        <td width="20%">@obj.Status.ToString()</td>
+                        <td class="text-center">
+                            <div class="btn-group" role="group">
+                                <a asp-route-Id="@obj.ID" asp-action="Details" class="btn btn-primary">
+                                    Details
+                                </a>
+                                <a asp-route-Id="@obj.ID" asp-action="Edit" class="btn btn-primary">
+                                   Edit
+                                </a>
+                                <a asp-route-Id="@obj.ID" asp-action="Delete" class="btn btn-danger">
+                                    Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p> No task exists.</p>
+    }
+
+</div>
