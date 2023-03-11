@@ -29,7 +29,7 @@ public class TasksController : Controller
     {
         vm.Tasks = _context.Tasks
             .Include(x => x.User)
-            .Where(x => x.Name.Contains(vm.SearchFilter))
+            .Where(x => x.Name.Contains(vm.SearchFilter) && x.Status == vm.StatusFilter)
             .ToList();
 
         return View(vm);

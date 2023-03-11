@@ -12,7 +12,8 @@
             <form method="post" asp-action="Index">
                 <div class="input-group mb-3">
                     <input asp-for="@Model.SearchFilter" type="text" class="form-control" placeholder="Filter Tasks">
-                    <a class="btn btn-info" asp-action="Index" asp-route-searchFilter="@Model.SearchFilter">Search</a>
+                    <select class="form-select" asp-for="StatusFilter" asp-items="Html.GetEnumSelectList<TodoTaskStatus>()"></select>
+                    <button class="btn btn-info" type="submit">Search</button>
                 </div>
             </form>
         </div>
