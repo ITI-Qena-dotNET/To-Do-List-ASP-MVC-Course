@@ -10,14 +10,16 @@ public sealed class TodoTask
 
     public DateTime AssignDate { get; set;}
 
-    public TaskStatus Status { get; set; }
+    public TodoTaskStatus Status { get; set; }
+
+    public int UserID { get; set; }
 
     public User User { get; set; }
 
     public List<Category> Categories { get; set; }
 }
 
-public enum TaskStatus
+public enum TodoTaskStatus
 {
     Open,
     InProgress,
