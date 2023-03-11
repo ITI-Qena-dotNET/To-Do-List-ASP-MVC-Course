@@ -1,14 +1,22 @@
-﻿@model List<TodoTask>
+﻿@model IndexViewModel
 @{
     ViewData["Title"] = "Tasks";
 }
 
 <div class="container p-3 bg-white">
     <div class="row pt-4">
-        <div class="col-6">
+        <div class="col-4">
             <h2 class="text-primary">Tasks List</h2>
         </div>
-        <div class="col-6 text-end">
+        <div class="col-4">
+            <form method="post" asp-action="Index">
+                <div class="input-group mb-3">
+                    <input asp-for="@Model.SearchFilter" type="text" class="form-control" placeholder="Filter Tasks">
+                    <a class="btn btn-info" asp-action="Index" asp-route-searchFilter="@Model.SearchFilter">Search</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-4 text-end">
             <a asp-action="Create" class="btn btn-primary">
                 Create New Task
             </a>
@@ -17,30 +25,33 @@
 
     <br /><br />
 
-    @if (Model.Any())
+    @if (Model.Tasks.Any())
     {
         <table class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Task Name</th>
+                    <th>Assigned to..</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var obj in Model)
+                @foreach (var obj in Model.Tasks)
                 {
                     <tr>
                         <td width="30%">@obj.Name</td>
                         <td width="30%">@obj.User.Name</td>
-                        <td width="20%">@obj.Status.ToString()</td>
+                        <td width="20%">
+                            <span class="badge bg-secondary">@obj.Status.ToString()</span>
+                        </td>
                         <td class="text-center">
                             <div class="btn-group" role="group">
                                 <a asp-route-Id="@obj.ID" asp-action="Details" class="btn btn-primary">
                                     Details
                                 </a>
                                 <a asp-route-Id="@obj.ID" asp-action="Edit" class="btn btn-primary">
-                                   Edit
+                                    Edit
                                 </a>
                                 <a asp-route-Id="@obj.ID" asp-action="Delete" class="btn btn-danger">
                                     Delete

@@ -16,8 +16,23 @@ public class TasksController : Controller
 
     public IActionResult Index()
     {
-        var tasks = _context.Tasks.Include(x => x.User).ToList();
-        return View(tasks);
+        IndexViewModel vm = new()
+        {
+            Tasks = _context.Tasks.Include(x => x.User).ToList()
+        };
+
+        return View(vm);
+    }
+
+    [HttpPost]
+    public IActionResult Index(IndexViewModel vm)
+    {
+        vm.Tasks = _context.Tasks
+            .Include(x => x.User)
+            .Where(x => x.Name.Contains(vm.SearchFilter))
+            .ToList();
+
+        return View(vm);
     }
 
     public async Task<IActionResult> Details(int id)
